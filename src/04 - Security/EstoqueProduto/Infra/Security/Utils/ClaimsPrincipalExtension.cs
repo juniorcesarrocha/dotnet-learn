@@ -1,5 +1,5 @@
 using System.Security.Claims;
-
+using System.Linq;
 namespace EstoqueProduto.Infra.Security.Utils
 {
     internal static class ClaimsPrincipalExtension
@@ -8,7 +8,7 @@ namespace EstoqueProduto.Infra.Security.Utils
         {
             var claim = principal.FindFirst("permissions");
             if (claim == null) return false;
-            return claim.Value.Contains(value);
+            return claim.Value.Split(",").Any( x => x.Trim() == value );
         }
     }
 }
